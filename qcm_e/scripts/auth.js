@@ -237,7 +237,8 @@ class AuthManager {
 
   async login(email, password) {
     try {
-      const { auth, signInWithEmailAndPassword } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+      const { signInWithEmailAndPassword } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+      const { auth } = window.Firebase;
       return await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       let errorMessage = 'Erreur de connexion';
@@ -268,7 +269,8 @@ class AuthManager {
 
   async register(name, email, password) {
     try {
-      const { auth, createUserWithEmailAndPassword, updateProfile } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+      const { createUserWithEmailAndPassword, updateProfile } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+      const { auth } = window.Firebase;
       
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       
@@ -303,13 +305,15 @@ class AuthManager {
   }
 
   async resetPassword(email) {
-    const { auth, sendPasswordResetEmail } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+    const { sendPasswordResetEmail } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+    const { auth } = window.Firebase;
     return sendPasswordResetEmail(auth, email);
   }
 
   async handleGoogleAuth() {
     try {
-      const { auth, GoogleAuthProvider, signInWithPopup } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+      const { GoogleAuthProvider, signInWithPopup } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+      const { auth } = window.Firebase;
       
       const provider = new GoogleAuthProvider();
       provider.addScope('email');
@@ -322,7 +326,8 @@ class AuthManager {
   }
 
   async logout() {
-    const { auth, signOut } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+    const { signOut } = await import('https://www.gstatic.com/firebasejs/10.7.0/firebase-auth.js');
+    const { auth } = window.Firebase;
     await signOut(auth);
   }
 
